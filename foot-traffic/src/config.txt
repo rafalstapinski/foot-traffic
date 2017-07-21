@@ -3,9 +3,21 @@ class DB:
     db = 'foot-traffic.db'
     dbn = 'sqlite'
 
-    setup_sql = [   'CREATE TABLE "locations" ( `id`	TEXT UNIQUE, `chain_id`	INTEGER, PRIMARY KEY(`id`) )',
+    setup_sql = [   'CREATE TABLE `locations` ( `id`	TEXT UNIQUE, `chain_id`	INTEGER, PRIMARY KEY(`id`) )',
                     'CREATE TABLE `checkins` ( `id`	TEXT UNIQUE, `checkins`	INTEGER, `date`	TEXT, PRIMARY KEY(`id`) )',
-                    'CREATE TABLE `chains` ( `id`	INTEGER PRIMARY KEY AUTOINCREMENT, `name`	TEXT )'
+                    'CREATE TABLE `chains` ( `id`	INTEGER PRIMARY KEY AUTOINCREMENT, `name`	TEXT )',
+                    '''CREATE TABLE `stats` (
+                    	`id`	INTEGER UNIQUE,
+                    	`venue_id`	TEXT,
+                    	`been_here`	INTEGER,
+                    	`been_here_unc`	INTEGER,
+                    	`checkins_count`	INTEGER,
+                    	`users_count`	INTEGER,
+                    	`tip_count`	INTEGER,
+                    	`visits_count`	INTEGER,
+                    	`date`	TEXT,
+                    	PRIMARY KEY(`id`)
+                    )'''
                 ]
 
 class API:
