@@ -2,18 +2,9 @@ import requests
 from config import *
 import json
 import web
+import sys
 
-db = web.database(dbn='sqlite', db='alt-data.db')
-
-# r = requests.get(API.url)
-
-top = 50
-left = -125
-right = -65
-bottom = 25
-
-i = 0
-
+db = web.database(dbn=DB.dbn, db=DB.db)
 
 # x = json.loads(re)
 #
@@ -29,7 +20,7 @@ i = 0
 
 def add_chain(name):
 
-    db.insert('chains', name=name)
+    return db.insert('chains', name=name)
 
 def first_run(chain_id):
 
@@ -47,16 +38,16 @@ def first_run(chain_id):
 
             r = requests.get(url).json()
 
-            if r['response']['venues'] != []:
-                db.insert('locations', chain=chain_id, lat=lat, lng=lng)
-                print 'exists', lat, lng
-            else:
-                print '------', lat, lng
+            for venue in r['response']['venues']:
+                print venue['id']
+                if db.select('locations', dict(venue_id=venue['id']), where='id=$venue_id').first() is None:
+                    db.insert('locations', id=venue['id'], chain_id=chain_id)
 
 def norm_run(chain_id):
 
     chain = db.select('chains', dict(id=chain_id), where='id=$id').first()
-    locations = db.select('locations', dict(chain=chain_id, where='chain=$chain_id')).list()
+
+    locations = db.select('locations', dict(chain_id=chain_id, where='chain_id = $chain_id')).list()
 
     for location in locations:
 
@@ -80,8 +71,9 @@ def norm_run(chain_id):
 #     db.insert('locations', )
 
 # norm_run(1)
-add_chain('buffalo wild wings')
-first_run(3)
-norm_run(1)
-norm_run(2)
-norm_run(3)
+
+cmd = sys.argv[1]
+
+if cmd == 'add':
+    chain_id = add_chain(sys.argv[2])
+    first_run(chain_id)
