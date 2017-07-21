@@ -1,0 +1,16 @@
+class DB:
+
+    db = 'foot-traffic.db'
+    dbn = 'sqlite'
+
+    setup_sql = [   'CREATE TABLE "locations" ( `id`	TEXT UNIQUE, `chain_id`	INTEGER, PRIMARY KEY(`id`) )',
+                    'CREATE TABLE `checkins` ( `id`	TEXT UNIQUE, `checkins`	INTEGER, `date`	TEXT, PRIMARY KEY(`id`) )',
+                    'CREATE TABLE `chains` ( `id`	INTEGER PRIMARY KEY AUTOINCREMENT, `name`	TEXT )'
+                ]
+
+class API:
+
+    client_id = ''
+    client_secret = ''
+
+    url = 'https://api.foursquare.com/v2/%s?v=20170721&client_id=%s&client_secret=%s%s' % ('%s', client_id, client_secret, '%s')
