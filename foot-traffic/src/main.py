@@ -6,18 +6,6 @@ import sys
 
 db = web.database(dbn=DB.dbn, db=DB.db)
 
-# x = json.loads(re)
-#
-# for venue in x['response']['venues']:
-#     print venue['verified'], venue['stats']['checkinsCount']
-#
-# lat, lng = 40, -74
-# url = API.url % ('venues/search', '&query=costco&ll=%s,%s' % (lat, lng))
-#
-# r = requests.get(url).json()
-
-# for venue in r['response']['venues']:
-
 def add_chain(name):
 
     return db.insert('chains', name=name)
@@ -59,21 +47,13 @@ def norm_run(chain_id):
 
             db.insert('traffic', venue_id=venue['id'], traffic=venue['stats']['checkinsCount'], chain_id=chain_id)
 
-# def first_run(venue_id):
-#
-#
-# lat, lng = 48, -74
-# url = API.url % ('venues/search', '&query=costco&ll=%s,%s' % (lat, lng))
-#
-# r = requests.get(url).json()
-
-# if r['response']['venues'] != []:
-#     db.insert('locations', )
-
-# norm_run(1)
-
 cmd = sys.argv[1]
 
-if cmd == 'add':
+if cmd == 'setup_db':
+
+    for q in DB.setup_sql:
+        db.query(q)
+
+elif cmd == 'add':
     chain_id = add_chain(sys.argv[2])
     first_run(chain_id)
