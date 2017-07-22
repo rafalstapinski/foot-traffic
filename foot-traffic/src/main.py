@@ -59,10 +59,32 @@ def run(chain_id):
 
 def run_all():
 
-    chains = db.select('chains').list()
+    locations = db.select('locations').list()
 
-    for chain in chains:
-        run(chain.id)
+    print len(locations)
+
+    i = 0
+
+    for location in locations:
+
+        print i, location['id']
+
+
+        url = API.url % ('venues/%s' % location['id'], '')
+        r = requests.get(url).json()
+        venue = r['response']['venue']
+
+        db.insert('stats',  venue_id=venue['id'],
+                            been_here=venue['beenHere']['count'],
+                            been_here_unc=venue['beenHere']['unconfirmedCount'],
+                            checkins_count=venue['stats']['checkinsCount'],
+                            users_count=venue['stats']['usersCount'],
+                            tip_count=venue['stats']['tipCount'],
+                            visits_count=venue['stats']['visitsCount'],
+                            date=datetime.now()
+        )
+
+        i += 1
 
 cmd = sys.argv[1]
 
