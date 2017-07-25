@@ -32,11 +32,15 @@ def first_run(chain_id):
                 if db.select('locations', dict(venue_id=venue['id']), where='id=$venue_id').first() is None:
                     db.insert('locations', id=venue['id'], chain_id=chain_id)
 
-def run(chain_id):
+def run(name):
 
-    chain = db.select('chains', dict(id=chain_id), where='id=$id').first()
+    chain = db.select('chains', dict(name=name), where='name = $name').first()
 
-    locations = db.select('locations', dict(chain_id=chain_id, where='chain_id = $chain_id')).list()
+    locations = db.select('locations', dict(chain_id=chain.id), where='chain_id = $chain_id').list()
+
+    print len(locations)
+
+    i = 0
 
     for location in locations:
 
@@ -44,7 +48,7 @@ def run(chain_id):
         r = requests.get(url).json()
         venue = r['response']['venue']
 
-        print venue['stats']['checkinsCount'], venue['stats']['usersCount'], venue['stats']['visitsCount'], venue['beenHere']['count'], venue['beenHere']['unconfirmedCount']
+        print i, ' ---- ', venue['stats']['checkinsCount'], venue['stats']['usersCount'], venue['stats']['visitsCount'], venue['beenHere']['count'], venue['beenHere']['unconfirmedCount']
 
         db.insert('stats',  venue_id=venue['id'],
                             been_here=venue['beenHere']['count'],
@@ -55,7 +59,7 @@ def run(chain_id):
                             visits_count=venue['stats']['visitsCount'],
                             date=datetime.now()
                 )
-
+        i = i+1
 
 def run_all():
 
@@ -98,3 +102,7 @@ elif cmd == 'add':
 
 elif cmd == 'run_all':
     run_all()
+
+elif cmd == 'run':
+    chain_name = sys.argv[2]
+    run(chain_name)
