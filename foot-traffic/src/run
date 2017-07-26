@@ -1,6 +1,6 @@
 DATE=`date +%Y-%m-%d`
 
-python main.py run_all
+echo 'python main.py run_all'
 git add .
 git commit -m "update data - $DATE"
 git push
