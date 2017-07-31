@@ -45,7 +45,7 @@ def run(name):
 
     for location in locations:
 
-	time.sleep(.5)
+	time.sleep(1)
 
         url = API.url % ('venues/%s' % location.id, '')
         r = requests.get(url).json()
