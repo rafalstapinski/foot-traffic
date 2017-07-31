@@ -4,6 +4,7 @@ import json
 import web
 import sys
 from datetime import datetime
+import time
 
 db = web.database(dbn=DB.dbn, db=DB.db)
 
@@ -43,6 +44,8 @@ def run(name):
     i = 0
 
     for location in locations:
+
+	time.sleep(.2)
 
         url = API.url % ('venues/%s' % location.id, '')
         r = requests.get(url).json()
