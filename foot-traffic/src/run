@@ -1,15 +1,15 @@
 DATE=`date +%Y-%m-%d`
 
-python main.py run starbucks
-python main.py run costco
-python main.py run bojangles
-python main.py run dennys
-python main.py run panera
-python main.py run chipotle
-python main.py run wendys
-python main.py run flanigans
-python main.py run jamba
-python main.py run sonic
+python main.py run starbucks >> run.log
+python main.py run costco >> run.log
+python main.py run bojangles >> run.log
+python main.py run dennys >> run.log
+python main.py run panera >> run.log
+python main.py run chipotle >> run.log
+python main.py run wendys >> run.log
+python main.py run flanigans >> run.log
+python main.py run jamba >> run.log
+python main.py run sonic >> run.log
 
 git add .
 git commit -m "update data - $DATE"
