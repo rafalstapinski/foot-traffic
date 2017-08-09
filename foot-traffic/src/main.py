@@ -45,24 +45,24 @@ def run(name):
 
     for location in locations:
 
-#	time.sleep(1)
+        time.sleep(1)
 
         url = API.url % ('venues/%s' % location.id, '')
         r = requests.get(url).json()
-        venue = r['response']['venue']
 
-        print i, ' ---- ', venue['stats']['checkinsCount'], venue['stats']['usersCount'], venue['stats']['visitsCount'], venue['beenHere']['count'], venue['beenHere']['unconfirmedCount']
+        if 'venue' in r['response']:
 
-        db.insert('stats',  venue_id=venue['id'],
-                            been_here=venue['beenHere']['count'],
-                            been_here_unc=venue['beenHere']['unconfirmedCount'],
-                            checkins_count=venue['stats']['checkinsCount'],
-                            users_count=venue['stats']['usersCount'],
-                            tip_count=venue['stats']['tipCount'],
-                            visits_count=venue['stats']['visitsCount'],
-                            date=datetime.now()
-                )
-        i = i+1
+            venue = r['response']['venue']
+
+            db.insert('stats',  venue_id=venue['id'],
+                                been_here=venue['beenHere']['count'],
+                                been_here_unc=venue['beenHere']['unconfirmedCount'],
+                                checkins_count=venue['stats']['checkinsCount'],
+                                users_count=venue['stats']['usersCount'],
+                                tip_count=venue['stats']['tipCount'],
+                                visits_count=venue['stats']['visitsCount'],
+                                date=datetime.now()
+                    )
 
 def run_all():
 
