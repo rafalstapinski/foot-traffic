@@ -1,7 +1,17 @@
-# Alternative Data Research
+# Foot Traffic Research
 
-Though I'm not sure if what I will be doing here falls under the scope of alternative data, I will be placing projects that I find to be interesting and include working with data regarding the finance sector here. 
+The aim of this project is to predict earning for publicly traded food chains using foot traffic as a proxy metric.
 
-Currently, I am working on tracking changes in foot traffic for publicly traded food/restaurant companies across the US throughout Q2. I will use that data and foot traffic data for Q3 to predict earnings reports for those companies. 
+Foot traffic data was collected daily throughout Q3 ad Q4 using the Foursquare API. It will be used with earnings reports to predict the earnings for Q4.
 
-Accurate readings starting August 1st. 
+The ten chains are:
+- Starbucks
+- Costco
+- Bojangles
+- Dennys
+- Panera
+- Chipotle
+- Wendys
+- Flanigans
+- Jamba
+- Sonic
