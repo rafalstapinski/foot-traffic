@@ -15,3 +15,8 @@ The ten chains are:
 - Flanigans
 - Jamba
 - Sonic
+
+
+Analysis:
+
+I missed most of the first month of Q3, so I will start my analysis with July 30th, until September 30th. To better see any trends, for every location I will take a point every week for this period from the raw data.
