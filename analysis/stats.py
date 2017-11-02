@@ -1,5 +1,6 @@
 import web
 import pickle
+from tabulate import tabulate
 
 def to_csv():
 
@@ -14,7 +15,13 @@ def to_csv():
                 change = stat[1] - stat[0]
                 percent_change = float(change) / float(stat[0])
 
-                stats_file_str += '%s,%d,%d,%d,%f\n' % (chain, stat[0], stat[1], change, percent_change)
+                stats_file_str += '%s,%d,%d,%d,%f\n' % (
+                    chain,
+                    stat[0],
+                    stat[1],
+                    change,
+                    percent_change
+                )
 
     stats_file = open('stats.csv', 'w')
     stats_file.write(stats_file_str)
@@ -24,6 +31,11 @@ def to_csv():
 def summary():
 
     stats = pickle.load(open('stats_weekly.p', 'rb'))
+
+    table = [[
+        'chain name', 'location count', 'total checkins at start',
+        'total checkins at end', 'avg location change', 'avg location % change'
+    ]]
 
     for chain in stats:
 
@@ -61,14 +73,17 @@ def summary():
             avg_change += change
             avg_percent_change += percent_change
 
-        if locations_count == 0:
-            print chain
-        else:
+        if locations_count != 0:  # oops costco
 
             avg_change /= float(locations_count)
-            avg_percent_change /= float(locations_count)
+            avg_percent_change /= float(locations_count) / 100
 
-            print chain, locations_count, total_start, total_end, avg_change, avg_percent_change
+            table.append([
+                chain, locations_count, total_start, total_end, avg_change,
+                avg_percent_change
+            ])
+
+    print tabulate(table)
 
 
 summary()
