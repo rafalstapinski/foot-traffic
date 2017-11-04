@@ -13,6 +13,9 @@ def start_end():
 
     for chain in chains:
 
+        if chain == 'costco':
+            continue
+
         stats[chain.name] = []
 
         locations = db.select(
@@ -64,6 +67,9 @@ def weekly():
 
 
     for chain in chains:
+
+        if chain == 'costco':
+            continue
 
         stats[chain.name] = []
 
