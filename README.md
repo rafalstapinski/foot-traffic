@@ -22,7 +22,7 @@ I am taking 9 week samples from the third quarter across these chains. I aggrega
 
 ### Q3 Summary:
 
-##### Empty revenues
+Empty revenues reflect unreleased earnings. 
 
 Chain | Unweighted Rate | Weighted Rate | Revenue
 --- | --- | --- | ---
