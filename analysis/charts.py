@@ -1,10 +1,25 @@
 import web
+import pickle
+import matplotlib.pyplot as plt
 
-db = web.database(dbn='sqlite', db='../src/foot-traffic.db')
+def weekly_stats():
 
-stats = db.select('stats',
-        dict(venue='448d1ab2f964a5204c341fe3'),
-        where='venue_id = $venue').list()
+    chains = pickle.load(open('stats_weekly.p', 'rb'))
+
+    x_axis = [i for i in range(1, 10)]
+
+    for chain in chains:
+        loc_length = 0
+        y_axis = [0 for _ in range(0, 10)]
+        for stat in chains[chain]:
+            if None in stat:
+                loc_length += 1
+
+        print '%s %d' % (chain, loc_length)
 
 
-print stats[84].checkins_count - stats[0].checkins_count
+
+    # print chains['starbucks']
+
+
+weekly_stats()

@@ -36,8 +36,8 @@ def start_end():
                 dict(venue_id=location.id),
                 where='venue_id=$venue_id',
                 order='date DESC',
-                limit=1)
-            .first()
+                limit=1
+            ).first()
 
             stats[chain.name].append((start.visits_count, end.visits_count))
 
@@ -51,7 +51,7 @@ def weekly():
 
     stats = {}
 
-    w_one = db.select('stats', where="date LIKE '%2017-07-29%'").list()
+    # w_one = db.select('stats', where="date LIKE '%2017-07-29%'").list()
     w_two = db.select('stats', where="date LIKE '%2017-08-05%'").list()
     w_thr = db.select('stats', where="date LIKE '%2017-08-12%'").list()
     w_fou = db.select('stats', where="date LIKE '%2017-08-19%'").list()
@@ -75,7 +75,7 @@ def weekly():
 
         for location in locations:
 
-            a = next((v.checkins_count for v in w_one if v.venue_id == location.id), None)
+            # a = next((v.checkins_count for v in w_one if v.venue_id == location.id), None)
             b = next((v.checkins_count for v in w_two if v.venue_id == location.id), None)
             c = next((v.checkins_count for v in w_thr if v.venue_id == location.id), None)
             d = next((v.checkins_count for v in w_fou if v.venue_id == location.id), None)
@@ -86,9 +86,7 @@ def weekly():
             i = next((v.checkins_count for v in w_nin if v.venue_id == location.id), None)
             j = next((v.checkins_count for v in w_ten if v.venue_id == location.id), None)
 
-            stats[chain.name].append((a, b, c, d, e, f, g, h, i, j))
-
-        sys.stdout.write('. ')
+            stats[chain.name].append((b, c, d, e, f, g, h, i, j))
 
     pickle.dump(stats, open('stats_weekly.p', 'wb'))
 
