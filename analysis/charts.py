@@ -3,7 +3,7 @@ import pickle
 import matplotlib.pyplot as plt
 import numpy as np
 
-def weekly_stats():
+def average_weekly():
 
     chains = pickle.load(open('stats_weekly.p', 'rb'))
 
@@ -30,14 +30,14 @@ def weekly_stats():
             location_count += 1
 
         y_axis -= y_axis.item(0)
-        y_axis /= location_count
+        # y_axis /= location_count
 
         legend.append(chain)
         plt.plot(x_axis, y_axis)
 
     plt.legend(legend, loc='upper left')
     plt.xlabel('Week')
-    plt.ylabel('Average visits since Week 1')
+    plt.ylabel('Total visits since Week 1')
     plt.show()
 
 

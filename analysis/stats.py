@@ -1,15 +1,49 @@
 import web
 import pickle
 from tabulate import tabulate
+import numpy as np
+from scipy import stats
+
+def rate_of_increase():
+
+    chains = pickle.load(open('stats_weekly.p', 'rb'))
+
+    x = [i for i in range(1, 10)]
+
+    for chain in chains:
+
+        if chain == 'costco':
+            continue
+
+        y = np.zeros(9)
+        location_count = 0
+
+        for stat in chains[chain]:
+
+            # TODO: Figure out better method to use None
+
+            if None in stat or 0 in stat:
+                continue
+
+            y += np.asarray(stat)
+            location_count += 1
+
+        unw_slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+
+        y /= location_count
+
+        w_slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+
+        print chain, unw_slope, w_slope
 
 def to_csv():
 
-    stats = pickle.load(open('stats.p', 'rb'))
+    chains = pickle.load(open('stats.p', 'rb'))
 
     stats_file_str = 'chain,start,end,change,percent change\n'
 
-    for chain in stats:
-        for stat in stats[chain]:
+    for chain in chains:
+        for stat in chains[chain]:
             if stat[0] != 0:
 
                 change = stat[1] - stat[0]
@@ -86,4 +120,4 @@ def summary():
     print tabulate(table)
 
 
-summary()
+rate_of_increase()
