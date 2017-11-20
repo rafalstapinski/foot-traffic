@@ -2,10 +2,9 @@ import web
 import pickle
 from tabulate import tabulate
 import numpy as np
-from scipy import stats as scipy_stats
-import sys
+from scipy import stats as sp_stats
 
-def rate_of_increase():
+def rate_of_increase(change_only = False):
 
     chains = pickle.load(open('stats_weekly.p', 'rb'))
 
@@ -17,23 +16,27 @@ def rate_of_increase():
             continue
 
         y = np.zeros(9)
-        locations_count = 0
+        location_count = 0
 
         for stat in chains[chain]:
-
-            # TODO: Figure out better method to use None
 
             if None in stat or 0 in stat:
                 continue
 
+            start = next(i for i in stat if i != None)
+            end = next(i for i in reversed(stat) if i != None)
+
+            if change_only and start == end:
+                continue
+
             y += np.asarray(stat)
-            locations_count += 1
+            location_count += 1
 
-        unw_slope, intercept, r_value, p_value, std_err = scipy_stats.linregress(x, y)
+        unw_slope, intercept, r_value, p_value, std_err = sp_stats.linregress(x, y)
 
-        y /= locations_count
+        y /= location_count
 
-        w_slope, intercept, r_value, p_value, std_err = scipy_stats.linregress(x, y)
+        w_slope, intercept, r_value, p_value, std_err = sp_stats.linregress(x, y)
 
         print chain, unw_slope, w_slope
 
@@ -63,16 +66,11 @@ def to_csv():
     stats_file.close()
 
 
-def summary():
+def summary(change_only = False):
 
     stats = pickle.load(open('stats_weekly.p', 'rb'))
 
     table = [[
-        'chain name', 'location count', 'total checkins at start',
-        'total checkins at end', 'avg location change',
-    ]]
-
-    table_change_only = [[
         'chain name', 'location count', 'total checkins at start',
         'total checkins at end', 'avg location change', 'avg location % change'
     ]]
@@ -82,17 +80,11 @@ def summary():
         if chain == 'costco':
             continue
 
-        all_start = np.array([])
-        all_end = np.array([])
-
-        all_start_change_only = np.array([])
-        all_end_change_only = np.array([])
-
-        # avg_change = []
-        # avg_percent_change = []
-        #
-        # avg_change_change_only = []
-        # avg_percent_change_change_only = []
+        locations_count = 0
+        total_start = 0
+        total_end = 0
+        avg_change = 0
+        avg_percent_change = 0
 
         for stat in stats[chain]:
 
@@ -108,40 +100,37 @@ def summary():
             start = next(i for i in stat if i != None)
             end = next(i for i in reversed(stat) if i != None)
 
-            all_start = np.append(all_start, start)
-            all_end = np.append(all_end, end)
+            if start == 0 or end == 0:
+                continue
 
-            if start != end:
+            if change_only and end == start:
+                continue
 
-                all_start_change_only = np.append(all_start_change_only, start)
-                all_end_change_only = np.append(all_end_change_only, end)
+            locations_count += 1
 
-        locations_count = all_start.size
-        locations_count_change_only = all_start_change_only.size
+            total_start += start
+            total_end += end
 
-        total_start = np.sum(all_start)
-        total_end = np.sum(all_end)
+            change = end - start
+            percent_change = float(change) / float(start)
 
-        total_start_change_only = np.sum(all_start_change_only)
-        total_end_change_only = np.sum(all_end_change_only)
+            avg_change += change
+            avg_percent_change += percent_change
 
-        avg_change = np.mean(all_end - all_start)
-
+        avg_change /= float(locations_count)
+        avg_percent_change /= float(locations_count) / 100
 
         table.append([
-            chain, locations_count, total_start, total_end, avg_change
+            chain, locations_count, total_start, total_end, avg_change,
+            avg_percent_change
         ])
-
-
-        #
-        # table.append([
-        #     chain, locations_count, total_start, total_end, avg_change,
-        #     avg_percent_change, locations_count_change_only,
-        #     total_start_change_only, total_end_change_only,
-        #     avg_change_change_only, avg_percent_change_change_only,
-        # ])
 
     print tabulate(table)
 
-summary()
+
 rate_of_increase()
+print
+rate_of_increase(change_only = True)
+
+summary()
+summary(change_only = True)
