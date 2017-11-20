@@ -10,6 +10,10 @@ def rate_of_increase(change_only = False):
 
     x = [i for i in range(1, 10)]
 
+    table = [[
+        'chain', 'unweighted rate', 'weighted rate'
+    ]]
+
     for chain in chains:
 
         if chain == 'costco':
@@ -38,7 +42,9 @@ def rate_of_increase(change_only = False):
 
         w_slope, intercept, r_value, p_value, std_err = sp_stats.linregress(x, y)
 
-        print chain, unw_slope, w_slope
+        table.append([chain, unw_slope, w_slope])
+
+    print tabulate(table)
 
 def to_csv():
 

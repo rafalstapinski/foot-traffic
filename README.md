@@ -22,16 +22,16 @@ I am taking 9 week samples from the third quarter across these chains. I aggrega
 
 ### Q3 Summary:
 
-Empty revenues reflect unreleased earnings. 
+Empty revenues reflect unreleased earnings.
 
-Chain | Unweighted Rate | Weighted Rate | Revenue
+Chain | Unweighted Rate | Weighted Rate | Weighted Rate CO |  Revenue
 --- | --- | --- | ---
-Starbucks | 3648.683 | 2.7434 | $5.7B
-Bojangles | 105.1 | 0.6914 | $133.43M
-Dennys | 243.883 | 0.5360 | $132.38M
-Panera | 840.13 | 2.2404 |
-Chipotle | 663.63 | 1.7888 | $1.13B
-Wendys | 595.63 | 0.5780 |
-Flanigans | 1.73 | 0.2476 |
-Jamba | 95.916 | 0.7211 |
-Sonic | 407.016 | 0.5493 | $123.57M
+Starbucks | 3648.683 | 2.7434 |  | $5.7B
+Bojangles | 105.1 | 0.6914 |  | $133.43M
+Dennys | 243.883 | 0.5360 |  | $132.38M
+Panera | 840.13 | 2.2404 |  |
+Chipotle | 663.63 | 1.7888 |  | $1.13B
+Wendys | 595.63 | 0.5780 |  |
+Flanigans | 1.73 | 0.2476 |  |
+Jamba | 95.916 | 0.7211 |  |
+Sonic | 407.016 | 0.5493 |  | $123.57M
