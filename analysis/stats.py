@@ -2,7 +2,8 @@ import web
 import pickle
 from tabulate import tabulate
 import numpy as np
-from scipy import stats
+from scipy import stats as scipy_stats
+import sys
 
 def rate_of_increase():
 
@@ -28,11 +29,11 @@ def rate_of_increase():
             y += np.asarray(stat)
             locations_count += 1
 
-        unw_slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+        unw_slope, intercept, r_value, p_value, std_err = scipy_stats.linregress(x, y)
 
         y /= locations_count
 
-        w_slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+        w_slope, intercept, r_value, p_value, std_err = scipy_stats.linregress(x, y)
 
         print chain, unw_slope, w_slope
 
@@ -68,6 +69,11 @@ def summary():
 
     table = [[
         'chain name', 'location count', 'total checkins at start',
+        'total checkins at end', 'avg location change',
+    ]]
+
+    table_change_only = [[
+        'chain name', 'location count', 'total checkins at start',
         'total checkins at end', 'avg location change', 'avg location % change'
     ]]
 
@@ -76,21 +82,17 @@ def summary():
         if chain == 'costco':
             continue
 
-        locations_count = 0
+        all_start = np.array([])
+        all_end = np.array([])
 
-        locations_count_change_only = 0
+        all_start_change_only = np.array([])
+        all_end_change_only = np.array([])
 
-        total_start = 0
-        total_end = 0
-
-        total_start_change_only = 0
-        total_end_change_only = 0
-
-        avg_change = 0
-        avg_percent_change = 0
-
-        avg_change_change_only = 0
-        avg_percent_change_change_only = 0
+        # avg_change = []
+        # avg_percent_change = []
+        #
+        # avg_change_change_only = []
+        # avg_percent_change_change_only = []
 
         for stat in stats[chain]:
 
@@ -106,32 +108,40 @@ def summary():
             start = next(i for i in stat if i != None)
             end = next(i for i in reversed(stat) if i != None)
 
-            if end == 0:
-                continue
-
-            locations_count += 1
-
-            total_start += start
-            total_end += end
+            all_start = np.append(all_start, start)
+            all_end = np.append(all_end, end)
 
             if start != end:
 
-                locations_count_change_only += 1
-                total_start_change_only += start
-                total_end_change_only += end
+                all_start_change_only = np.append(all_start_change_only, start)
+                all_end_change_only = np.append(all_end_change_only, end)
 
+        locations_count = all_start.size
+        locations_count_change_only = all_start_change_only.size
 
-        avg_change = float(total_end - total_start) / float(locations_count)
-        avg_percent_change /= float(locations_count) / 100
+        total_start = np.sum(all_start)
+        total_end = np.sum(all_end)
+
+        total_start_change_only = np.sum(all_start_change_only)
+        total_end_change_only = np.sum(all_end_change_only)
+
+        avg_change = np.mean(all_end - all_start)
+
 
         table.append([
-            chain, locations_count, total_start, total_end, avg_change,
-            avg_percent_change, locations_count_change_only,
-            total_start_change_only, total_end_change_only,
-            avg_change_change_only, avg_percent_change_change_only,
+            chain, locations_count, total_start, total_end, avg_change
         ])
+
+
+        #
+        # table.append([
+        #     chain, locations_count, total_start, total_end, avg_change,
+        #     avg_percent_change, locations_count_change_only,
+        #     total_start_change_only, total_end_change_only,
+        #     avg_change_change_only, avg_percent_change_change_only,
+        # ])
 
     print tabulate(table)
 
-
+summary()
 rate_of_increase()
