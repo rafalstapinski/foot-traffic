@@ -16,7 +16,7 @@ def rate_of_increase():
             continue
 
         y = np.zeros(9)
-        location_count = 0
+        locations_count = 0
 
         for stat in chains[chain]:
 
@@ -26,11 +26,11 @@ def rate_of_increase():
                 continue
 
             y += np.asarray(stat)
-            location_count += 1
+            locations_count += 1
 
         unw_slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
 
-        y /= location_count
+        y /= locations_count
 
         w_slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
 
@@ -73,11 +73,24 @@ def summary():
 
     for chain in stats:
 
+        if chain == 'costco':
+            continue
+
         locations_count = 0
+
+        locations_count_change_only = 0
+
         total_start = 0
         total_end = 0
+
+        total_start_change_only = 0
+        total_end_change_only = 0
+
         avg_change = 0
         avg_percent_change = 0
+
+        avg_change_change_only = 0
+        avg_percent_change_change_only = 0
 
         for stat in stats[chain]:
 
@@ -93,7 +106,7 @@ def summary():
             start = next(i for i in stat if i != None)
             end = next(i for i in reversed(stat) if i != None)
 
-            if start == 0 or end == 0:
+            if end == 0:
                 continue
 
             locations_count += 1
@@ -101,21 +114,22 @@ def summary():
             total_start += start
             total_end += end
 
-            change = end - start
-            percent_change = float(change) / float(start)
+            if start != end:
 
-            avg_change += change
-            avg_percent_change += percent_change
+                locations_count_change_only += 1
+                total_start_change_only += start
+                total_end_change_only += end
 
-        if locations_count != 0:  # oops costco
 
-            avg_change /= float(locations_count)
-            avg_percent_change /= float(locations_count) / 100
+        avg_change = float(total_end - total_start) / float(locations_count)
+        avg_percent_change /= float(locations_count) / 100
 
-            table.append([
-                chain, locations_count, total_start, total_end, avg_change,
-                avg_percent_change
-            ])
+        table.append([
+            chain, locations_count, total_start, total_end, avg_change,
+            avg_percent_change, locations_count_change_only,
+            total_start_change_only, total_end_change_only,
+            avg_change_change_only, avg_percent_change_change_only,
+        ])
 
     print tabulate(table)
 
