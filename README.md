@@ -25,7 +25,9 @@ I am taking 9 week samples from the third quarter across these chains. I aggrega
 Empty revenues reflect unreleased earnings.
 
 The unweighted rate is given by a regression of the increase in check-ins across every venue per chain.
+
 The weighted rate is given by a regression of the increase in check-ins across every venue per chain when adjusted for the amount of checkins relative to other venues in the chain.
+
 The change-only weighted rate is given by a regression of the increase in weighted check-ins only for the venues that showed an increase in traffic over the course of the quarter.
 
 Chain | Unweighted Rate | Weighted Rate | Weighted Rate CO |  Revenue
