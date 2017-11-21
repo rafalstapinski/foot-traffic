@@ -29,7 +29,7 @@ The weighted rate is given by a regression of the increase in check-ins across e
 The change-only weighted rate is given by a regression of the increase in weighted check-ins only for the venues that showed an increase in traffic over the course of the quarter.
 
 Chain | Unweighted Rate | Weighted Rate | Weighted Rate CO |  Revenue
---- | --- | --- | ---
+--- | --- | --- | --- | ---
 Starbucks | 3648.683 | 2.7434 | 3.5254 | $5.7B
 Bojangles | 105.1 | 0.6914 | 1.0010 | $133.43M
 Dennys | 243.883 | 0.5360 | 0.8746 | $132.38M
