@@ -46,9 +46,9 @@ Sonic | 407.016 | 0.5493 | 0.9857 | $123.57M
 ### Q4 Predictions vs Reported Revenues:
 
 Chain | Q4 Rate CO | Predicted Revenue | Reported Revenue
-Starbucks | 3.4145 | $5.52B |
-Bojangles | 0.8506 | $113.38M |
-Dennys | 0.9078 | $137.41M
-Chipotle | 1.6695 | $980M
-Wendys | 0.7330 |
-Sonic | 0.8451 |
+Starbucks | 3.4145 | $5.52B | $6B
+Bojangles | 0.8506 | $113M |
+Dennys | 0.9078 | $137M |
+Chipotle | 1.6695 | $980M |
+Wendys | 0.7330 | $298M |
+Sonic | 0.8451 | $106M |
