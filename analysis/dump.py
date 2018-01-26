@@ -55,15 +55,15 @@ def weekly():
     stats = {}
 
     # w_one = db.select('stats', where="date LIKE '%2017-07-29%'").list()
-    w_two = db.select('stats', where="date LIKE '%2017-08-05%'").list()
-    w_thr = db.select('stats', where="date LIKE '%2017-08-12%'").list()
-    w_fou = db.select('stats', where="date LIKE '%2017-08-19%'").list()
-    w_fiv = db.select('stats', where="date LIKE '%2017-08-26%'").list()
-    w_six = db.select('stats', where="date LIKE '%2017-09-02%'").list()
-    w_sev = db.select('stats', where="date LIKE '%2017-09-09%'").list()
-    w_eig = db.select('stats', where="date LIKE '%2017-09-16%'").list()
-    w_nin = db.select('stats', where="date LIKE '%2017-09-23%'").list()
-    w_ten = db.select('stats', where="date LIKE '%2017-09-30%'").list()
+    w_two = db.select('stats', where="date LIKE '%2017-10-05%'").list()
+    w_thr = db.select('stats', where="date LIKE '%2017-10-12%'").list()
+    w_fou = db.select('stats', where="date LIKE '%2017-10-19%'").list()
+    w_fiv = db.select('stats', where="date LIKE '%2017-10-26%'").list()
+    w_six = db.select('stats', where="date LIKE '%2017-11-02%'").list()
+    w_sev = db.select('stats', where="date LIKE '%2017-11-09%'").list()
+    w_eig = db.select('stats', where="date LIKE '%2017-11-16%'").list()
+    w_nin = db.select('stats', where="date LIKE '%2017-11-23%'").list()
+    w_ten = db.select('stats', where="date LIKE '%2017-11-30%'").list()
 
 
     for chain in chains:
@@ -94,6 +94,6 @@ def weekly():
 
             stats[chain.name].append((b, c, d, e, f, g, h, i, j))
 
-    pickle.dump(stats, open('stats_weekly.p', 'wb'))
+    pickle.dump(stats, open('q4_stats_weekly.p', 'wb'))
 
 weekly()

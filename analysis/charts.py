@@ -6,7 +6,7 @@ import sys
 
 def line_weekly_change_only():
 
-    chains = pickle.load(open('stats_weekly.p', 'rb'))
+    chains = pickle.load(open('q4_stats_weekly.p', 'rb'))
 
     x_axis = [i for i in range(1, 10)]
 
@@ -44,7 +44,7 @@ def line_weekly_change_only():
 
 def line_weekly():
 
-    chains = pickle.load(open('stats_weekly.p', 'rb'))
+    chains = pickle.load(open('q4_stats_weekly.p', 'rb'))
 
     x_axis = [i for i in range(1, 10)]
 

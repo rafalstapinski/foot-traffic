@@ -6,7 +6,7 @@ from scipy import stats as sp_stats
 
 def rate_of_increase(change_only = False):
 
-    chains = pickle.load(open('stats_weekly.p', 'rb'))
+    chains = pickle.load(open('q4_stats_weekly.p', 'rb'))
 
     x = [i for i in range(1, 10)]
 
@@ -74,7 +74,7 @@ def to_csv():
 
 def summary(change_only = False):
 
-    stats = pickle.load(open('stats_weekly.p', 'rb'))
+    stats = pickle.load(open('q4_stats_weekly.p', 'rb'))
 
     table = [[
         'chain name', 'location count', 'total checkins at start',

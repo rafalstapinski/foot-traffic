@@ -41,3 +41,14 @@ Wendys | 595.63 | 0.5780 | 0.7577 | $308.0M
 Flanigans | 1.73 | 0.2476 | 0.5778 |
 Jamba | 95.916 | 0.7211 | 0.9896 |
 Sonic | 407.016 | 0.5493 | 0.9857 | $123.57M
+
+
+### Q4 Predictions vs Reported Revenues:
+
+Chain | Q4 Rate CO | Predicted Revenue | Reported Revenue
+Starbucks | 3.4145 | $5.52B |
+Bojangles | 0.8506 | $113.38M |
+Dennys | 0.9078 | $137.41M
+Chipotle | 1.6695 | $980M
+Wendys | 0.7330 |
+Sonic | 0.8451 |
